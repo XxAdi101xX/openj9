@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 1991, 2017 IBM Corp. and others
+ * Copyright (c) 1991, 2019 IBM Corp. and others
  *
  * This program and the accompanying materials are made available under
  * the terms of the Eclipse Public License 2.0 which accompanies this
@@ -36,7 +36,6 @@
 #if defined(J9ZTPF)
 #define J9_NO_DENORMAL_FLOAT_SUPPORT 1
 #endif
-
 
 I_32
 helperCDoubleCompareDouble(jdouble a, jdouble b)

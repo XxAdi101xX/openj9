@@ -43,7 +43,7 @@ $(UMA_DLLTARGET) : $(UMA_OBJECTS) $(UMA_TARGET_LIBRARIES)
 		$(UMA_DLL_LINK_POSTFLAGS)
 ifdef j9vm_uma_gnuDebugSymbols
 	$(OBJCOPY) --only-keep-debug $(UMA_DLLTARGET) $(UMA_DLLTARGET).dbg
-	$(OBJCOPY) --strip-debug $(UMA_DLLTARGET)
+	$(OBJCOPY) $(UMA_DLLTARGET)
 	$(OBJCOPY) --add-gnu-debuglink=$(UMA_DLLTARGET).dbg $(UMA_DLLTARGET)
 endif
 </#assign>
@@ -100,12 +100,17 @@ ifndef UMA_DO_NOT_OPTIMIZE_CCODE
   <#if uma.spec.properties.uma_optimization_cflags.defined>
     UMA_OPTIMIZATION_CFLAGS += ${uma.spec.properties.uma_optimization_cflags.value}
   <#else>
+<<<<<<< HEAD
     <#if uma.spec.processor.amd64>
       UMA_OPTIMIZATION_CFLAGS += -O3 -fno-strict-aliasing
+=======
+    <#if uma.spec.processor.amd64 || uma.spec.processor.riscv64>
+      UMA_OPTIMIZATION_CFLAGS += -O0 -fno-strict-aliasing
+>>>>>>> 08779b3... ACMP compatibility for value types
     <#elseif uma.spec.processor.x86>
-      UMA_OPTIMIZATION_CFLAGS += -O3 -fno-strict-aliasing -march=pentium4 -mtune=prescott -mpreferred-stack-boundary=4
+      UMA_OPTIMIZATION_CFLAGS += -O0 -fno-strict-aliasing -march=pentium4 -mtune=prescott -mpreferred-stack-boundary=4
     <#elseif uma.spec.processor.arm>
-      UMA_OPTIMIZATION_CFLAGS += -g -O3 -fno-strict-aliasing $(ARM_ARCH_FLAGS) -Wno-unused-but-set-variable
+      UMA_OPTIMIZATION_CFLAGS += -g3 -O0 -fno-strict-aliasing $(ARM_ARCH_FLAGS) -Wno-unused-but-set-variable
     <#elseif uma.spec.processor.ppc>
       UMA_OPTIMIZATION_CFLAGS += -O3
       <#if uma.spec.flags.env_gcc.enabled>
@@ -118,7 +123,7 @@ ifndef UMA_DO_NOT_OPTIMIZE_CCODE
         endif
       </#if>
     <#elseif uma.spec.processor.s390>
-      UMA_OPTIMIZATION_CFLAGS += -O3 -mtune=z10 -march=z9-109 -mzarch
+      UMA_OPTIMIZATION_CFLAGS += -O0 -mtune=z10 -march=z9-109 -mzarch
     <#else>
       UMA_OPTIMIZATION_CFLAGS += -O
     </#if>
@@ -126,12 +131,17 @@ ifndef UMA_DO_NOT_OPTIMIZE_CCODE
   <#if uma.spec.properties.uma_optimization_cxxflags.defined>
     UMA_OPTIMIZATION_CXXFLAGS += ${uma.spec.properties.uma_optimization_cxxflags.value}
   <#else>
+<<<<<<< HEAD
     <#if uma.spec.processor.amd64>
       UMA_OPTIMIZATION_CXXFLAGS += -O3 -fno-strict-aliasing
+=======
+    <#if uma.spec.processor.amd64 || uma.spec.processor.riscv64>
+      UMA_OPTIMIZATION_CXXFLAGS += -O0 -fno-strict-aliasing
+>>>>>>> 08779b3... ACMP compatibility for value types
     <#elseif uma.spec.processor.x86>
-      UMA_OPTIMIZATION_CXXFLAGS += -O3 -fno-strict-aliasing -march=pentium4 -mtune=prescott -mpreferred-stack-boundary=4
+      UMA_OPTIMIZATION_CXXFLAGS += -O0 -fno-strict-aliasing -march=pentium4 -mtune=prescott -mpreferred-stack-boundary=4
     <#elseif uma.spec.processor.arm>
-      UMA_OPTIMIZATION_CXXFLAGS += -g -O3 -fno-strict-aliasing $(ARM_ARCH_FLAGS) -Wno-unused-but-set-variable
+      UMA_OPTIMIZATION_CXXFLAGS += -g3 -O0 -fno-strict-aliasing $(ARM_ARCH_FLAGS) -Wno-unused-but-set-variable
     <#elseif uma.spec.processor.ppc>
       UMA_OPTIMIZATION_CXXFLAGS += -O3
       <#if uma.spec.flags.env_gcc.enabled>
@@ -141,7 +151,7 @@ ifndef UMA_DO_NOT_OPTIMIZE_CCODE
         UMA_OPTIMIZATION_CXXFLAGS += -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1
       </#if>
     <#elseif uma.spec.processor.s390>
-      UMA_OPTIMIZATION_CXXFLAGS += -O3 -mtune=z10 -march=z9-109 -mzarch
+      UMA_OPTIMIZATION_CXXFLAGS += -O0 -mtune=z10 -march=z9-109 -mzarch
     <#else>
       UMA_OPTIMIZATION_CXXFLAGS += -O
     </#if>
@@ -155,7 +165,7 @@ CFLAGS += $(UMA_OPTIMIZATION_CFLAGS)
 CXXFLAGS += $(UMA_OPTIMIZATION_CXXFLAGS)
 <#if uma.spec.processor.ppc>
   ifdef USE_PPC_GCC
-    PPC_GCC_CXXFLAGS += -O3 -fno-strict-aliasing
+    PPC_GCC_CXXFLAGS += -O0 -fno-strict-aliasing
   endif
 </#if>
 

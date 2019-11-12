@@ -774,7 +774,7 @@ void subDF(float f1, float f2, float *rp);
 /**
 * @brief Helper function called by VM interpreter, using 
 *        pointers to values. Given 2 pointers to double values,
-*        returns  flag indicating how the values compare.
+*        returns flag indicating how the values compare.
 * @param[in] *a Pointer to double value.
 * @param[in] *b Pointer to double value.
 * @return Integer flag: 0 if a=b
